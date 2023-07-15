@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Wordle</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="icon" type="image/x-icon" href="./favicon/favicon.ico" />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+  </head>
+  <body>
+    <script src="./wordle.js"></script>
+    <div id="container">
+      <nav id="barNav">
+        <div id="middle">
+        <div id="title"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wordle</strong></div>
+      </div>
+        <div id="right">
+        <button class="top" id="clickDark">&#9681;</button>
+        <button class="top" id="clickHelp">&#63;</button>
+        <button class="top" id="clickInstr">&#9432;</button>
+      </div>
+      </nav>
+      
+      <div class="hidden" id="congrats">
+        <img src="congrats.gif" alt="Congratulations GIF"/>
+        </div>
+      <section>
+        <div id="middleSection">
+          <div id="leftSide">
+            <div id="table">
+            <table>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+
+          <div id="button">
+            <button id="start">Start Over</button>
+          </div>
+
+
+          </div>
+        <div class ="hidden" id="instructions">
+          <div><strong>&nbsp;&nbsp;&nbsp;&nbsp;How to Play</strong></div>
+          <ul>
+            <li>Start typing. The letters will appear in the boxes</li>
+            <li>Remove letters with Backspace</li>
+            <li>Hit Enter/Return to submit an answer</li>
+            <li>Letters with a green background are in the right spot</li>
+            <li>Letters with a yellow background exist in the word, but are in the wrong spot</li>
+            <li>Letters with a gray background do not exist in the word</li>
+            <li>If you require a hint, click the &#63; icon</li>
+          </ul>
+        </div>
+      </div>
+      
+      </section>
+      <div class="hidden" id="hint"></div>
+      <div class="hidden" id="lost"></div>
+      <div class="hidden" id="won"></div>     
+      <footer>&#169; KK</footer>
+    </div>
+  </body>
+</html>
