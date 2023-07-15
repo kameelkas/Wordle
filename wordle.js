@@ -1,5 +1,4 @@
 window.onload = async () => {
-    document.getElementById('hiddenInput').focus();
     const restartButton = document.getElementById("start");
     restartButton.disabled = true;
     restartButton.innerText = "Loading...";
@@ -30,6 +29,9 @@ window.onload = async () => {
     const tds = document.getElementsByTagName("td");
 
     function loadWord() {
+        const input = document.getElementById("hiddenInput");
+        input.focus();
+        
         document.addEventListener("keyup", (event) => {
             if (gameOver) return;
             const val = event.key.toUpperCase();
