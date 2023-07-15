@@ -1,4 +1,5 @@
 window.onload = async () => {
+    document.getElementById('hiddenInput').focus();
     const restartButton = document.getElementById("start");
     restartButton.disabled = true;
     restartButton.innerText = "Loading...";
