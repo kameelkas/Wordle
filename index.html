@@ -2,8 +2,9 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Wordle</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Wordle</title>
     <link rel="stylesheet" href="./style.css" />
     <link
       rel="apple-touch-icon"
@@ -43,7 +44,6 @@
         <img src="congrats.gif" alt="Congratulations GIF"/>
         </div>
       <section>
-        <input id="hiddenInput" type="text" style="position: absolute; top: -9999px; left: -9999px;" />
         <div id="middleSection">
           <div id="leftSide">
             <div id="table">
@@ -73,6 +73,45 @@
                 <td></td>
               </tr>
             </table>
+          </div>
+
+          <div id="keyboard">
+            <div class="row">
+              <button class="keyboard-key" data-letter="Q">Q</button>
+              <button class="keyboard-key" data-letter="W">W</button>
+              <button class="keyboard-key" data-letter="E">E</button>
+              <button class="keyboard-key" data-letter="R">R</button>
+              <button class="keyboard-key" data-letter="T">T</button>
+              <button class="keyboard-key" data-letter="Y">Y</button>
+              <button class="keyboard-key" data-letter="U">U</button>
+              <button class="keyboard-key" data-letter="I">I</button>
+              <button class="keyboard-key" data-letter="O">O</button>
+              <button class="keyboard-key" data-letter="P">P</button>
+            </div>
+
+            <div class="row">
+              <button class="keyboard-key" data-letter="A">A</button>
+              <button class="keyboard-key" data-letter="S">S</button>
+              <button class="keyboard-key" data-letter="D">D</button>
+              <button class="keyboard-key" data-letter="F">F</button>
+              <button class="keyboard-key" data-letter="G">G</button>
+              <button class="keyboard-key" data-letter="H">H</button>
+              <button class="keyboard-key" data-letter="J">J</button>
+              <button class="keyboard-key" data-letter="K">K</button>
+              <button class="keyboard-key" data-letter="L">L</button>
+            </div>
+
+            <div class="row">
+              <button class="keyboard-key" data-letter="Backspace">Backspace</button>
+              <button class="keyboard-key" data-letter="Z">Z</button>
+              <button class="keyboard-key" data-letter="X">X</button>
+              <button class="keyboard-key" data-letter="C">C</button>
+              <button class="keyboard-key" data-letter="V">V</button>
+              <button class="keyboard-key" data-letter="B">B</button>
+              <button class="keyboard-key" data-letter="N">N</button>
+              <button class="keyboard-key" data-letter="M">M</button>
+              <button class="keyboard-key" data-letter="Enter">Enter</button>
+            </div>
           </div>
 
           <div id="button">

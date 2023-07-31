@@ -22,87 +22,103 @@ window.onload = async () => {
     var gameOver = false;
     var wonGame = false;
     var lostGame = false;
-    const letterCheck = /^[a-zA-Z]$/;
+    const letterCheck = /^[a-zA-Z\b\r]$/;
     const columns = 4;
-    var row = 0; //cuurent guess (attempt #)
+    var row = 0; //current guess (attempt #)
     var letterCol = 0; //cuurent letter of attempt #
     const tds = document.getElementsByTagName("td");
 
-    function loadWord() {
-        const input = document.getElementById("hiddenInput");
-        input.focus();
-        
-        document.addEventListener("keyup", (event) => {
-            if (gameOver) return;
-            const val = event.key.toUpperCase();
-            if (letterCheck.test(event.key)) {
-                if (letterCol < columns) {
-                    tds[((row * columns) + letterCol)].innerText = val;
-                    if(current.classList.contains("dark-mode")){
-                        tds[((row * columns) + letterCol)].classList.remove("selected"); 
-                        tds[((row * columns) + letterCol)].classList.add("selected-dark"); 
-                        if (((row * columns) + letterCol) == 15) {
-                            tds[((row * columns) + letterCol)].classList.add("selected-dark");
-                            tds[((row * columns) + letterCol - 1)].classList.remove("selected-dark");
-                        } else {
-                            tds[((row * columns) + letterCol + 1)].classList.add("selected-dark");
-                            tds[((row * columns) + letterCol)].classList.remove("selected-dark");
-                        }
-                    } else {
-                        tds[((row * columns) + letterCol)].classList.remove("selected-dark");    
-                        tds[((row * columns) + letterCol)].classList.add("selected");    
-                        if (((row * columns) + letterCol) == 15) {
-                            tds[((row * columns) + letterCol)].classList.add("selected");
-                            tds[((row * columns) + letterCol - 1)].classList.remove("selected");
-                        } else {
-                            tds[((row * columns) + letterCol + 1)].classList.add("selected");
-                            tds[((row * columns) + letterCol)].classList.remove("selected");
-                        }
-                    }
-                    letterCol += 1;
-                }
-            } else if (event.key == "Backspace") {
-                if(current.classList.contains("dark-mode")){
-                    tds[((row * columns) + letterCol)].classList.remove("selected");    
-                    tds[((row * columns) + letterCol)].classList.add("selected-dark");    
-                    if (((row * columns) + letterCol) == 0) {
-                        tds[((row * columns) + letterCol)].classList.add("selected-dark");
-                        tds[((row * columns) + letterCol + 1)].classList.remove("selected-dark");
-                    } else {
-                        tds[((row * columns) + letterCol)].classList.remove("selected-dark");
-                        tds[((row * columns) + letterCol - 1)].classList.add("selected-dark");
-                    }
-                } else {
-                    tds[((row * columns) + letterCol)].classList.remove("selected-dark");  
-                    tds[((row * columns) + letterCol)].classList.remove("selected");      
-                    if (((row * columns) + letterCol) == 0) {
-                        tds[((row * columns) + letterCol)].classList.add("selected");
-                        tds[((row * columns) + letterCol + 1)].classList.remove("selected");
-                    } else {
-                        tds[((row * columns) + letterCol)].classList.remove("selected");
-                        tds[((row * columns) + letterCol - 1)].classList.add("selected");
-                    }
-                }
+    //this takes care of letters being typed into the Wordle grid if using physical keyboard
+    document.addEventListener("keyup", (event) => {
+        if(gameOver) return;
+        let takenLetter = event.key;
+        if(letterCheck.test(takenLetter)) {
+            gridWordCheck(takenLetter.toUpperCase());
+        } else if (takenLetter === "Backspace" || takenLetter === "Enter") {
+            gridWordCheck(takenLetter);
+        };
+    });
 
-                if (letterCol > -1 && letterCol <= columns) {
-                    if (letterCol == 0) {
-                        tds[((row * columns) + letterCol)].innerText = "";
-                    } else {
-                        letterCol -= 1;
-                        tds[((row * columns) + letterCol)].innerText = "";
-                    }
-                }
-            } else if (event.key == "Enter") {
-                if (letterCol != columns) {
-                    window.alert("You must complete the word first!");
+    //this takes care of letters being typed into the Wordle grid if using on screen keyboard
+    const keyboardKeys = document.querySelectorAll(".keyboard-key");
+    keyboardKeys.forEach((key) => {
+        key.addEventListener("click", () => {
+        let clickedLetter = key.dataset.letter;
+        gridWordCheck(clickedLetter);
+        });
+    });
+
+
+    function gridWordCheck(typedLetter) {
+        if(typedLetter === "Enter") {
+            if(letterCol != columns) {
+                window.alert("You must complete the word first!");
+            } else {
+                checkLetters();
+                row += 1;
+                letterCol = 0;
+            }
+        } else if (typedLetter === "Backspace") {
+            if(current.classList.contains("dark-mode")){
+                tds[((row * columns) + letterCol)].classList.remove("selected");    
+                tds[((row * columns) + letterCol)].classList.add("selected-dark");    
+                if (((row * columns) + letterCol) == 0) {
+                    tds[((row * columns) + letterCol)].classList.add("selected-dark");
+                    tds[((row * columns) + letterCol + 1)].classList.remove("selected-dark");
                 } else {
-                    checkLetters();
-                    row += 1;
-                    letterCol = 0;
+                    tds[((row * columns) + letterCol)].classList.remove("selected-dark");
+                    tds[((row * columns) + letterCol - 1)].classList.add("selected-dark");
+                }
+            } else {
+                tds[((row * columns) + letterCol)].classList.remove("selected-dark");  
+                tds[((row * columns) + letterCol)].classList.remove("selected");      
+                if (((row * columns) + letterCol) == 0) {
+                    tds[((row * columns) + letterCol)].classList.add("selected");
+                    tds[((row * columns) + letterCol + 1)].classList.remove("selected");
+                } else {
+                    tds[((row * columns) + letterCol)].classList.remove("selected");
+                    tds[((row * columns) + letterCol - 1)].classList.add("selected");
                 }
             }
 
-            restartButton.addEventListener("click", restart);
+            if (letterCol > -1 && letterCol <= columns) {
+                if (letterCol == 0) {
+                    tds[((row * columns) + letterCol)].innerText = "";
+                } else {
+                    letterCol -= 1;
+                    tds[((row * columns) + letterCol)].innerText = "";
+                }
+            }
+        } else {
+            const value = typedLetter;
+            if (letterCol < columns) {
+                tds[((row * columns) + letterCol)].innerText = value;
+                if(current.classList.contains("dark-mode")){
+                    tds[((row * columns) + letterCol)].classList.remove("selected"); 
+                    tds[((row * columns) + letterCol)].classList.add("selected-dark"); 
+                    if (((row * columns) + letterCol) == 15) {
+                        tds[((row * columns) + letterCol)].classList.add("selected-dark");
+                        tds[((row * columns) + letterCol - 1)].classList.remove("selected-dark");
+                    } else {
+                        tds[((row * columns) + letterCol + 1)].classList.add("selected-dark");
+                        tds[((row * columns) + letterCol)].classList.remove("selected-dark");
+                    }
+                } else {
+                    tds[((row * columns) + letterCol)].classList.remove("selected-dark");    
+                    tds[((row * columns) + letterCol)].classList.add("selected");    
+                    if (((row * columns) + letterCol) == 15) {
+                        tds[((row * columns) + letterCol)].classList.add("selected");
+                        tds[((row * columns) + letterCol - 1)].classList.remove("selected");
+                    } else {
+                        tds[((row * columns) + letterCol + 1)].classList.add("selected");
+                        tds[((row * columns) + letterCol)].classList.remove("selected");
+                    }
+                }
+                letterCol += 1;
+            }
+        }
+
+        restartButton.addEventListener("click", restart);
 
             if (!gameOver && row == columns) {
                 gameOver = true;
@@ -126,10 +142,10 @@ window.onload = async () => {
                 table.classList.toggle("hidden");
                 restartButton.addEventListener("click", restart);
             }
-        });
-    }
+    };
 
     function checkLetters() {
+        //Making a dictionary that tracks each letter that appears in the given word and the occurence of that letter in the word
         let correctLetter = 0;
         let letterCount = {};
         for (let i = 0; i < givenWord.length; i++) {
@@ -140,11 +156,15 @@ window.onload = async () => {
                 letterCount[letter] = 1;
             }
         }
+
+        //adds the green background on Wordle grid and green keyboard highlight for letters that are in the word and in the correct position       
         for (let check = 0; check < columns; check++) {
             let place = tds[((row * columns) + check)].innerText;
+            let letterButton = document.querySelector(`button[data-letter="${place}"]`);
             // letter in right place
             if (place == givenWord[check]) {
                 tds[((row * columns) + check)].classList.add("rightPlace");
+                letterButton.classList.add("keyboard-key-rightPlace");
                 correctLetter += 1;
                 letterCount[place] -= 1;
             }
@@ -154,17 +174,24 @@ window.onload = async () => {
             }
         }
 
-        //second time through, check letters that are present but in the wrong position
+        //second time through, check letters that are present but in the wrong position and adds the appropriate background (yellow or grey)
         for (let check = 0; check < columns; check++) {
             let place = tds[((row * columns) + check)].innerText;
+            let letterButton = document.querySelector(`button[data-letter="${place}"]`);
             if (!tds[((row * columns) + check)].classList.contains("rightPlace")) {
                 if (givenWord.includes(place) && letterCount[place] > 0) {
                     //is letter in word but not in the right place
                     tds[((row * columns) + check)].classList.add("inWord");
+                    if (!letterButton.classList.contains("keyboard-key-rightPlace")) {
+                        letterButton.classList.add("keyboard-key-inWord");
+                    };
                     letterCount[place] -= 1;
                 } else {
                     //wrong letter
                     tds[((row * columns) + check)].classList.add("wrong");
+                    if (!letterButton.classList.contains("keyboard-key-rightPlace") && !letterButton.classList.contains("keyboard-key-inWord")) {
+                        letterButton.classList.add("keyboard-key-wrong");
+                    };
                 }
             }
         }
@@ -214,6 +241,7 @@ window.onload = async () => {
     } else{
         tds[((row * columns) + letterCol)].classList.add("selected");    
     }
+
     function restart() {
         restartButton.addEventListener("keydown", (event) => event.preventDefault());
         randomWord = dictionary[Number.parseInt(Math.random() * dictionary.length)];
@@ -232,6 +260,13 @@ window.onload = async () => {
             }
         }
 
+        const keyboardKeys = document.querySelectorAll(".keyboard-key");
+        keyboardKeys.forEach((key) => {
+            key.classList.remove("keyboard-key-rightPlace");
+            key.classList.remove("keyboard-key-inWord");
+            key.classList.remove("keyboard-key-wrong");
+            });
+    
         formatHint = "<i>Hint</i>" + ": " + givenHint;
         document.getElementById("hint").innerHTML = formatHint;
 
@@ -250,5 +285,4 @@ window.onload = async () => {
         }
     }
 
-    loadWord();
-}
+};
