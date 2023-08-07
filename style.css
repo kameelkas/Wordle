@@ -7,6 +7,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  width: 100vw;
 }
 
 .dark-mode{
@@ -15,6 +16,7 @@ body {
   flex-direction: column;
   background-color:rgb(38, 36, 36);
   color:white;
+  width: 100vw;
 }
 
 section {
@@ -26,6 +28,7 @@ section {
   display: flex;
   border-top: 3px rgb(105, 196, 105) solid;
   border-bottom: 1px #dddbd6 solid;
+  width: 100vw;
 }
 
 .top{
@@ -75,9 +78,8 @@ section {
 
 #table{
   width: 225px;
-  height: 280px;
-  margin: 0 auto;
-  margin-top: 50px;
+  height: 260px;
+  margin-top: 20px;
 }
 
 td{
@@ -98,18 +100,14 @@ td{
 }
 
 #middleSection{
-  flex:1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 #instructions{
-  flex: 1;
   padding-right: 10px;
   padding-top: 10px;
-  font-size: 30px;
-  border-left: 2px #dddbd6 solid;
-
+  font-size: 20px;
 }
 
 #button{
@@ -173,10 +171,10 @@ li{
 }
 
 #leftSide{
-  flex:1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .rightPlace{
@@ -213,7 +211,7 @@ li{
 .keyboard-key {
   width: auto;
   height: 40px;
-  margin: 5px;
+  margin: auto;
   font-size: 20px;
   font-weight: bold;
   border: 2px solid #ccc;

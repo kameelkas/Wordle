@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Wordle</title>
+    <title>Wordle</title>
+    <link rel="stylesheet" href="./normalize.css" />
     <link rel="stylesheet" href="./style.css" />
     <link
       rel="apple-touch-icon"
@@ -31,7 +32,7 @@
     <div id="container">
       <nav id="barNav">
         <div id="middle">
-        <div id="title"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wordle</strong></div>
+        <div id="title"><strong>Wordle</strong></div>
       </div>
         <div id="right">
         <button class="top" id="clickDark">&#9681;</button>
@@ -45,6 +46,20 @@
         </div>
       <section>
         <div id="middleSection">
+
+          <div class ="hidden" id="instructions">
+            <div><strong>&nbsp;&nbsp;&nbsp;&nbsp;How to Play</strong></div>
+            <ul>
+              <li>Start typing. The letters will appear in the boxes</li>
+              <li>Remove letters with Backspace</li>
+              <li>Hit Enter/Return to submit an answer</li>
+              <li>Letters with a green background are in the right spot</li>
+              <li>Letters with a yellow background exist in the word, but are in the wrong spot</li>
+              <li>Letters with a gray background do not exist in the word</li>
+              <li>If you require a hint, click the &#63; icon</li>
+            </ul>
+          </div>
+  
           <div id="leftSide">
             <div id="table">
             <table>
@@ -102,7 +117,7 @@
             </div>
 
             <div class="row">
-              <button class="keyboard-key" data-letter="Backspace">Backspace</button>
+              <button class="keyboard-key" data-letter="Enter">Enter</button>
               <button class="keyboard-key" data-letter="Z">Z</button>
               <button class="keyboard-key" data-letter="X">X</button>
               <button class="keyboard-key" data-letter="C">C</button>
@@ -110,28 +125,14 @@
               <button class="keyboard-key" data-letter="B">B</button>
               <button class="keyboard-key" data-letter="N">N</button>
               <button class="keyboard-key" data-letter="M">M</button>
-              <button class="keyboard-key" data-letter="Enter">Enter</button>
+              <button class="keyboard-key" data-letter="Backspace">	&#9003;</button>
             </div>
           </div>
 
           <div id="button">
             <button id="start">Start Over</button>
           </div>
-
-
           </div>
-        <div class ="hidden" id="instructions">
-          <div><strong>&nbsp;&nbsp;&nbsp;&nbsp;How to Play</strong></div>
-          <ul>
-            <li>Start typing. The letters will appear in the boxes</li>
-            <li>Remove letters with Backspace</li>
-            <li>Hit Enter/Return to submit an answer</li>
-            <li>Letters with a green background are in the right spot</li>
-            <li>Letters with a yellow background exist in the word, but are in the wrong spot</li>
-            <li>Letters with a gray background do not exist in the word</li>
-            <li>If you require a hint, click the &#63; icon</li>
-          </ul>
-        </div>
       </div>
       
       </section>

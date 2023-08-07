@@ -50,6 +50,8 @@ window.onload = async () => {
 
 
     function gridWordCheck(typedLetter) {
+        let enterButton = document.querySelector('button[data-letter="Enter"]');
+        enterButton.disabled = false;
         if(typedLetter === "Enter") {
             if(letterCol != columns) {
                 window.alert("You must complete the word first!");
@@ -121,6 +123,7 @@ window.onload = async () => {
         restartButton.addEventListener("click", restart);
 
             if (!gameOver && row == columns) {
+                enterButton.disabled = true;
                 gameOver = true;
                 lostGame = true;
                 const lost = document.getElementById("lost");
@@ -130,6 +133,7 @@ window.onload = async () => {
                 lost.classList.toggle("hidden");
                 restartButton.addEventListener("click", restart);
             } else if (gameOver) {
+                enterButton.disabled = true;
                 wonGame = true;
                 const congrats = document.getElementById("congrats");
                 const won = document.getElementById("won");

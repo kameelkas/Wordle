@@ -32,7 +32,7 @@ resource "aws_iam_role" "IAM-role" {
 EOF
 }
 
-# IAM policy for all 6 lambda functions
+# IAM policy for lambda function
 resource "aws_iam_policy" "policy" {
   policy = <<EOF
 {
