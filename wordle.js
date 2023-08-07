@@ -27,6 +27,7 @@ window.onload = async () => {
     var row = 0; //current guess (attempt #)
     var letterCol = 0; //cuurent letter of attempt #
     const tds = document.getElementsByTagName("td");
+    const keyboardButtons = document.querySelectorAll(".keyboard-key");
 
     //this takes care of letters being typed into the Wordle grid if using physical keyboard
     document.addEventListener("keyup", (event) => {
@@ -40,8 +41,7 @@ window.onload = async () => {
     });
 
     //this takes care of letters being typed into the Wordle grid if using on screen keyboard
-    const keyboardKeys = document.querySelectorAll(".keyboard-key");
-    keyboardKeys.forEach((key) => {
+    keyboardButtons.forEach((key) => {
         key.addEventListener("click", () => {
         let clickedLetter = key.dataset.letter;
         gridWordCheck(clickedLetter);
@@ -50,8 +50,6 @@ window.onload = async () => {
 
 
     function gridWordCheck(typedLetter) {
-        let keyboardButtons = document.querySelectorAll(".keyboard-key");
-        keyboardButtons.disabled = false;
         if(typedLetter === "Enter") {
             if(letterCol != columns) {
                 window.alert("You must complete the word first!");
@@ -123,7 +121,9 @@ window.onload = async () => {
         restartButton.addEventListener("click", restart);
 
             if (!gameOver && row == columns) {
-                keyboardButtons.disabled = true;
+                keyboardButtons.forEach((key) => {
+                    key.disabled = true;
+                });
                 gameOver = true;
                 lostGame = true;
                 const lost = document.getElementById("lost");
@@ -133,7 +133,9 @@ window.onload = async () => {
                 lost.classList.toggle("hidden");
                 restartButton.addEventListener("click", restart);
             } else if (gameOver) {
-                keyboardButtons.disabled = true;
+                keyboardButtons.forEach((key) => {
+                    key.disabled = true;
+                });
                 wonGame = true;
                 const congrats = document.getElementById("congrats");
                 const won = document.getElementById("won");
@@ -247,6 +249,14 @@ window.onload = async () => {
     }
 
     function restart() {
+        /*Prevent the user from pressing any of the keyboard keys from being clicked which will mess 
+        with the toggle of the lost/won actions and the grid, allowing the user to continue guessing 
+        even if they have already won/lost before using all turns
+        */
+        keyboardButtons.forEach((key) => {
+            key.disabled = false;
+        });
+
         restartButton.addEventListener("keydown", (event) => event.preventDefault());
         randomWord = dictionary[Number.parseInt(Math.random() * dictionary.length)];
         givenWord = randomWord.word.toUpperCase();
@@ -264,8 +274,7 @@ window.onload = async () => {
             }
         }
 
-        const keyboardKeys = document.querySelectorAll(".keyboard-key");
-        keyboardKeys.forEach((key) => {
+        keyboardButtons.forEach((key) => {
             key.classList.remove("keyboard-key-rightPlace");
             key.classList.remove("keyboard-key-inWord");
             key.classList.remove("keyboard-key-wrong");
