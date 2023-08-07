@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
   flex-direction: column;
   width: 100vw;
+  color: black;
 }
 
 .dark-mode{
@@ -205,7 +206,7 @@ li{
 
 .row {
   display: flex;
-  margin: 0 1vw;
+  margin: 2px 0;
 }
 
 .keyboard-key {
@@ -243,4 +244,8 @@ footer {
   border-top: 1px #dddbd6 solid;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+button {
+  color: black;
 }
