@@ -170,7 +170,13 @@ window.onload = async () => {
             // letter in right place
             if (place == givenWord[check]) {
                 tds[((row * columns) + check)].classList.add("rightPlace");
-                letterButton.classList.add("keyboard-key-rightPlace");
+                if (letterButton.classList.contains("keyboard-key-inWord")) {
+                    letterButton.classList.remove("keyboard-key-inWord");
+                    letterButton.classList.add("keyboard-key-rightPlace");
+                } else {
+                    letterButton.classList.add("keyboard-key-rightPlace");                
+                };
+                
                 correctLetter += 1;
                 letterCount[place] -= 1;
             }
